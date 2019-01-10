@@ -8,7 +8,7 @@ export function marksy(options = {}) {
     nextElementId: null,
     toc: null,
     currentIdLevel: 0,
-    currentId: [],
+    currentId: []
   };
   const renderer = createRenderer(tracker, options, {
     code(code, language) {
@@ -17,14 +17,16 @@ export function marksy(options = {}) {
           // eslint-disable-next-line no-plusplus
           const elementId = tracker.nextElementId++;
 
-          const components = Object.keys(options.components).map(key => options.components[key]);
+          const components = Object.keys(options.components).map(
+            key => options.components[key]
+          );
           const mockedReact = (tag, props = {}, ...children) => {
             const componentProps =
               components.indexOf(tag) >= 0
                 ? Object.assign(props || {}, {
                     // eslint-disable-next-line no-plusplus
                     key: tracker.nextElementId++,
-                    context: tracker.context,
+                    context: tracker.context
                   })
                 : props;
 
@@ -33,10 +35,11 @@ export function marksy(options = {}) {
 
           tracker.elements[elementId] =
             // eslint-disable-next-line no-new-func
-            new Function('h', ...Object.keys(options.components), `return ${code}`)(
-              mockedReact,
-              ...components
-            ) || null;
+            new Function(
+              'h',
+              ...Object.keys(options.components),
+              `return ${code}`
+            )(mockedReact, ...components) || null;
 
           tracker.tree.push(tracker.elements[elementId]);
 
@@ -47,7 +50,7 @@ export function marksy(options = {}) {
         return null;
       }
       return codeRenderer(tracker, options)(code, language);
-    },
+    }
   });
 
   return function compile(content, markedOptions = {}, context = {}) {
@@ -57,7 +60,10 @@ export function marksy(options = {}) {
     tracker.nextElementId = 0;
     tracker.context = context;
     tracker.currentId = [];
-    marked(content, Object.assign({ renderer, smartypants: true }, markedOptions));
+    marked(
+      content,
+      Object.assign({ renderer, smartypants: true }, markedOptions)
+    );
 
     return { tree: tracker.tree, toc: tracker.toc };
   };

@@ -1,22 +1,22 @@
 {
-  "name": "marksy",
-  "version": "6.1.0",
+  "name": "axin-custom-marksy",
+  "version": "6.1.1",
   "description": "Convert markdown into react components",
   "keywords": [
     "convert",
     "markdown",
     "react"
   ],
-  "homepage": "https://github.com/storybooks/marksy",
+  "homepage": "https://github.com/Julienng/marksy",
   "bugs": {
-    "url": "https://github.com/storybooks/marksy/issues"
+    "url": "https://github.com/Julienng/marksy/issues"
   },
   "license": "MIT",
   "author": "Christian Alfoni",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybooks/marksy"
+    "url": "https://github.com/Julienng/marksy"
   },
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src/ --out-dir=lib/ -s",

@@ -2,6 +2,23 @@ import marked from 'marked';
 import { transform } from 'babel-standalone';
 import createRenderer, { codeRenderer } from './createRenderer';
 
+const voidElements = [
+  'area',
+  'base',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr'
+];
+
 export function marksy(options = {}) {
   // eslint-disable-next-line no-param-reassign
   options.components = options.components || {};
@@ -11,7 +28,7 @@ export function marksy(options = {}) {
     elements: null,
     nextElementId: null,
     toc: null,
-    currentId: [],
+    currentId: []
   };
   const renderer = createRenderer(tracker, options, {
     html(html) {
@@ -20,9 +37,11 @@ export function marksy(options = {}) {
         const elementId = tracker.nextElementId++;
 
         const { code } = transform(html, {
-          presets: ['react'],
+          presets: ['react']
         });
-        const components = Object.keys(options.components).map(key => options.components[key]);
+        const components = Object.keys(options.components).map(
+          key => options.components[key]
+        );
         const mockedReact = {
           createElement(tag, props = {}, ...children) {
             const componentProps =
@@ -30,20 +49,30 @@ export function marksy(options = {}) {
                 ? Object.assign(props || {}, {
                     // eslint-disable-next-line no-plusplus
                     key: tracker.nextElementId++,
-                    context: tracker.context,
+                    context: tracker.context
                   })
-                : props;
+                : Object.assign(props || {}, {
+                    // eslint-disable-next-line no-plusplus
+                    key: tracker.nextElementId++
+                  });
 
-            return options.createElement(tag, componentProps, children);
-          },
+            const isElementVoid = voidElements.indexOf(tag) > -1;
+
+            return options.createElement(
+              tag,
+              componentProps,
+              isElementVoid ? null : children
+            );
+          }
         };
 
         tracker.elements[elementId] =
           // eslint-disable-next-line no-new-func
-          new Function('React', ...Object.keys(options.components), `return ${code}`)(
-            mockedReact,
-            ...components
-          ) || null;
+          new Function(
+            'React',
+            ...Object.keys(options.components),
+            `return ${code}`
+          )(mockedReact, ...components) || null;
 
         tracker.tree.push(tracker.elements[elementId]);
 
@@ -58,7 +87,7 @@ export function marksy(options = {}) {
         return renderer.html(code);
       }
       return codeRenderer(tracker, options)(code, language);
-    },
+    }
   });
 
   return function compile(content, markedOptions = {}, context = {}) {
@@ -68,7 +97,10 @@ export function marksy(options = {}) {
     tracker.nextElementId = 0;
     tracker.context = context;
     tracker.currentId = [];
-    marked(content, Object.assign({ renderer, smartypants: true }, markedOptions));
+    marked(
+      content,
+      Object.assign({ renderer, smartypants: true }, markedOptions)
+    );
 
     return { tree: tracker.tree, toc: tracker.toc };
   };

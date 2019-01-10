@@ -28,17 +28,17 @@ const compile = marksy({
             flex: '1',
             padding: '10px',
             backgroundColor: '#DADADA',
-            border: '1px solid #333',
+            border: '1px solid #333'
           }}
         >
           {children}
         </div>
       );
-    },
+    }
   },
   h1(props) {
     return <h1 style={{ textDecoration: 'underline' }}>{props.children}</h1>;
-  },
+  }
 });
 
 const demo = `
@@ -61,13 +61,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       tree: compile(demo).tree,
-      value: demo,
+      value: demo
     };
   }
   onTextareaChange(event) {
     this.setState({
       tree: compile(event.target.value).tree,
-      value: event.target.value,
+      value: event.target.value
     });
   }
   render() {
@@ -79,7 +79,7 @@ class App extends React.Component {
             width: '50%',
             verticalAlign: 'top',
             display: 'inline-block',
-            padding: '0 20px',
+            padding: '0 20px'
           }}
         >
           {this.state.tree}
@@ -90,7 +90,7 @@ class App extends React.Component {
             height: 500,
             border: '1px dashed #DADADA',
             outline: 'none',
-            padding: '10px',
+            padding: '10px'
           }}
           onChange={event => this.onTextareaChange(event)}
           value={this.state.value}

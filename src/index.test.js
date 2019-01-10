@@ -20,10 +20,10 @@ hljs.registerLanguage('xml', hljsXml);
 // eslint-disable-next-line
 class TestComponent extends Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node
   };
   static defaultProps = {
-    children: null,
+    children: null
   };
   render() {
     return <div>{this.props.children}</div>;
@@ -33,7 +33,9 @@ class TestComponent extends Component {
 it('should be able to compile text', () => {
   const compile = marksy({ createElement });
   const compiled = compile('hello');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -41,7 +43,9 @@ it('should be able to compile text', () => {
 it('should be able to compile strong text', () => {
   const compile = marksy({ createElement });
   const compiled = compile('hello **there**');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -49,7 +53,9 @@ it('should be able to compile strong text', () => {
 it('should be able to compile italic text', () => {
   const compile = marksy({ createElement });
   const compiled = compile('hello *there*');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -57,7 +63,9 @@ it('should be able to compile italic text', () => {
 it('should be able to compile links', () => {
   const compile = marksy({ createElement });
   const compiled = compile('[my link](http://example.com)');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -70,7 +78,9 @@ it('should be able to compile headers', () => {
 ### header3
 #### header4
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -83,7 +93,9 @@ it('should handle same name nested headers', () => {
 # header3
 ## header2
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -94,7 +106,9 @@ it('should be able to compile ordered list', () => {
 1. foo
 2. bar
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -105,7 +119,9 @@ it('should be able to compile list', () => {
 - foo
 - bar
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -119,7 +135,9 @@ it('should be able to compile tables', () => {
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -127,7 +145,9 @@ it('should be able to compile tables', () => {
 it('should be able to compile codespans', () => {
   const compile = marksy({ createElement });
   const compiled = compile('install with `$ npm install`');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -135,7 +155,9 @@ it('should be able to compile codespans', () => {
 it('should be able to compile image', () => {
   const compile = marksy({ createElement });
   const compiled = compile('![test](http://some.com/image.png)');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -143,7 +165,9 @@ it('should be able to compile image', () => {
 it('should be able to compile html', () => {
   const compile = marksy({ createElement });
   const compiled = compile('<div>hello</div>');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -151,7 +175,9 @@ it('should be able to compile html', () => {
 it('should be able to compile html as components', () => {
   const compile = marksyComponents({ createElement });
   const compiled = compile('<div>hello</div>');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -162,11 +188,13 @@ it('should be able to compile components', () => {
     components: {
       Test() {
         return <div>mip</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('<Test />');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -177,11 +205,13 @@ it('should be able to compile components using H and marksy language', () => {
     components: {
       Test() {
         return <div>mip</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('```marksy\nh(Test)\n```');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -192,11 +222,13 @@ it('should be able to compile components using marksy language', () => {
     components: {
       Test() {
         return <div>mip</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('```marksy\n<Test />\n```');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -207,11 +239,13 @@ it('should show source instead of compiling components when using other language
     components: {
       Test() {
         return <div>mip</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('```js\n<Test />\n```');
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -226,7 +260,9 @@ it('should be able to compile nested lists', () => {
   - Triangle
   - Rectangle
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -240,7 +276,9 @@ it('should be able to combine in compilation', () => {
 
 -bar
   `);
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -264,14 +302,16 @@ it('should produce custom tags', () => {
     elements: {
       h1(props) {
         return <div>{props.children}</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile(`
 # foo
   `);
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -282,14 +322,16 @@ it('should work with Preact', () => {
     elements: {
       h1(props) {
         return Preact.h('div', null, props.children);
-      },
-    },
+      }
+    }
   });
   const compiled = compile(`
 # foo
   `);
 
-  expect(preactRenderToString(Preact.h('div', null, compiled.tree))).toMatchSnapshot();
+  expect(
+    preactRenderToString(Preact.h('div', null, compiled.tree))
+  ).toMatchSnapshot();
 });
 
 it('should work with Inferno', () => {
@@ -298,14 +340,16 @@ it('should work with Inferno', () => {
     elements: {
       h1(props) {
         return infernoCreateElement('div', null, props.children);
-      },
-    },
+      }
+    }
   });
   const compiled = compile(`
 # foo
   `);
 
-  expect(infernoRenderToString(infernoCreateElement('div', null, compiled.tree))).toMatchSnapshot();
+  expect(
+    infernoRenderToString(infernoCreateElement('div', null, compiled.tree))
+  ).toMatchSnapshot();
 });
 
 it('should allow injecting context to elements', () => {
@@ -314,8 +358,8 @@ it('should allow injecting context to elements', () => {
     elements: {
       h1(props) {
         return <div>{props.context.foo}</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile(
     `
@@ -323,11 +367,13 @@ it('should allow injecting context to elements', () => {
   `,
     {},
     {
-      foo: 'bar',
+      foo: 'bar'
     }
   );
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -338,8 +384,8 @@ it('should allow injecting context to components', () => {
     components: {
       Comp(props) {
         return <div>{props.context.foo}</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile(
     `
@@ -347,11 +393,13 @@ it('should allow injecting context to components', () => {
   `,
     {},
     {
-      foo: 'bar',
+      foo: 'bar'
     }
   );
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -362,12 +410,14 @@ it('should be able to inline components', () => {
     components: {
       Comp() {
         return <div>Wuuut</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('<p>Hello there <Comp/></p>');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -378,12 +428,14 @@ it('should allow overriding inline code element', () => {
     elements: {
       codespan({ children }) {
         return <div>{children}</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('Hello `code`');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -394,12 +446,14 @@ it('should allow overriding inline code element with components version', () => 
     elements: {
       codespan({ children }) {
         return <div>{children}</div>;
-      },
-    },
+      }
+    }
   });
   const compiled = compile('Hello `code`');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -414,12 +468,14 @@ it('should allow overriding block code element', () => {
             {language}: {code}
           </div>
         );
-      },
-    },
+      }
+    }
   });
   const compiled = compile('```js\ncode\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -434,34 +490,40 @@ it('should allow overriding block code element with components version', () => {
             {language}: {code}
           </div>
         );
-      },
-    },
+      }
+    }
   });
   const compiled = compile('```js\ncode\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
 
 it('should escape code when no highlighting is supplied', () => {
   const compile = marksy({
-    createElement,
+    createElement
   });
   const compiled = compile('```js\nconst Foo = () => <div/>\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
 
 it('should escape code when no highlighting is supplied with components version', () => {
   const compile = marksyComponents({
-    createElement,
+    createElement
   });
   const compiled = compile('```js\nconst Foo = () => <div/>\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -471,11 +533,13 @@ it('should highlight code with highlight.js', () => {
     createElement,
     highlight(language, code) {
       return hljs.highlight(language, code).value;
-    },
+    }
   });
   const compiled = compile('```js\nconst foo = "bar"\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -485,12 +549,14 @@ it('should not crash highlight.js with unsupported language', () => {
     createElement,
     highlight(language, code) {
       return hljs.highlight(language, code).value;
-    },
+    }
   });
 
   const compiled = compile('```unsuppoted_language\nconst foo = "bar"\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -500,18 +566,20 @@ it('should highlight code with Prism.js', () => {
     createElement,
     highlight(language, code) {
       return Prism.highlight(code, Prism.languages[language]);
-    },
+    }
   });
   const compiled = compile('```js\nconst foo = "bar"\n```');
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
 
 it('should be able to compile list with html tag', () => {
   const compile = marksyComponents({
-    createElement,
+    createElement
   });
 
   const compiled = compile(
@@ -526,7 +594,9 @@ it('should be able to compile list with html tag', () => {
   `
   );
 
-  const tree = renderer.create(<TestComponent>{compiled.tree}</TestComponent>).toJSON();
+  const tree = renderer
+    .create(<TestComponent>{compiled.tree}</TestComponent>)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
