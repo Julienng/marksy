@@ -1,12 +1,8 @@
 {
   "name": "axin-custom-marksy",
-  "version": "6.1.1",
+  "version": "7.0.0-alpha-0",
   "description": "Convert markdown into react components",
-  "keywords": [
-    "convert",
-    "markdown",
-    "react"
-  ],
+  "keywords": ["convert", "markdown", "react"],
   "homepage": "https://github.com/Julienng/marksy",
   "bugs": {
     "url": "https://github.com/Julienng/marksy/issues"
@@ -20,15 +16,18 @@
   },
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src/ --out-dir=lib/ -s",
-    "lint": "cross-env NODE_ENV=production eslint --cache --cache-location=.cache/eslint --ext .js,.jsx,.json ./src ./app",
+    "lint":
+      "cross-env NODE_ENV=production eslint --cache --cache-location=.cache/eslint --ext .js,.jsx,.json ./src ./app",
     "prepare": "npm run build",
     "size": "size-limit",
-    "start": "webpack-dev-server --devtool eval-source-map --progress --colors --content-base build",
+    "start":
+      "webpack-dev-server --devtool eval-source-map --progress --colors --content-base build",
     "test": "jest"
   },
   "dependencies": {
     "babel-standalone": "^6.26.0",
     "he": "^1.1.1",
+    "htm": "^2.2.1",
     "marked": "^0.3.12"
   },
   "devDependencies": {

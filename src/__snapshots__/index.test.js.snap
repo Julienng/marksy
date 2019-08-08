@@ -2,9 +2,8 @@
 
 exports[`should allow injecting context to components 1`] = `
 <div>
-  <div>
-    bar
-  </div>
+  &lt;Comp/&gt;
+
 </div>
 `;
 
@@ -89,9 +88,7 @@ exports[`should be able to compile codespans 1`] = `
 
 exports[`should be able to compile components 1`] = `
 <div>
-  <div>
-    mip
-  </div>
+  &lt;Test /&gt;
 </div>
 `;
 
@@ -105,9 +102,7 @@ exports[`should be able to compile components using H and marksy language 1`] = 
 
 exports[`should be able to compile components using marksy language 1`] = `
 <div>
-  <div>
-    mip
-  </div>
+  &lt;Test /&gt;
 </div>
 `;
 
@@ -150,9 +145,7 @@ exports[`should be able to compile html 1`] = `
 
 exports[`should be able to compile html as components 1`] = `
 <div>
-  <div>
-    hello
-  </div>
+  &lt;div&gt;hello&lt;/div&gt;
 </div>
 `;
 
@@ -206,11 +199,9 @@ exports[`should be able to compile list 1`] = `
 
 exports[`should be able to compile list with html tag 1`] = `
 <div>
-  <font
-    color="red"
-  >
-     this is root red text 
-  </font>
+    &lt;font color="red"&gt; this is root red text &lt;/font&gt;
+
+
   <ul>
     <li>
       list 1
@@ -219,21 +210,14 @@ exports[`should be able to compile list with html tag 1`] = `
       list 2
     </li>
     <li>
-      <font
-        color="blue"
-      >
-        list blue text
-      </font>
+      &lt;font color="blue"&gt;list blue text&lt;/font&gt;
     </li>
     <li>
       list 3
       <ul>
         <li>
-          <font
-            color="green"
-          >
-            two depth green text
-          </font>
+          &lt;font color="green"&gt;two depth green text&lt;/font&gt;
+
         </li>
       </ul>
     </li>
@@ -375,12 +359,7 @@ exports[`should be able to compile text 1`] = `
 
 exports[`should be able to inline components 1`] = `
 <div>
-  <p>
-    Hello there 
-    <div>
-      Wuuut
-    </div>
-  </p>
+  &lt;p&gt;Hello there &lt;Comp/&gt;&lt;/p&gt;
 </div>
 `;
 

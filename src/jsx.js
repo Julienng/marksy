@@ -1,6 +1,8 @@
 import marked from 'marked';
-import { transform } from 'babel-standalone';
+// import { transform } from 'babel-standalone';
 import createRenderer, { codeRenderer } from './createRenderer';
+
+import htm from 'htm';
 
 const voidElements = [
   'area',
@@ -36,43 +38,37 @@ export function marksy(options = {}) {
         // eslint-disable-next-line no-plusplus
         const elementId = tracker.nextElementId++;
 
-        const { code } = transform(html, {
-          presets: ['react']
-        });
         const components = Object.keys(options.components).map(
           key => options.components[key]
         );
-        const mockedReact = {
-          createElement(tag, props = {}, ...children) {
-            const componentProps =
-              components.indexOf(tag) >= 0
-                ? Object.assign(props || {}, {
-                    // eslint-disable-next-line no-plusplus
-                    key: tracker.nextElementId++,
-                    context: tracker.context
-                  })
-                : Object.assign(props || {}, {
-                    // eslint-disable-next-line no-plusplus
-                    key: tracker.nextElementId++
-                  });
 
-            const isElementVoid = voidElements.indexOf(tag) > -1;
+        // eslint-disable-next-line no-inner-declarations
+        function customRenderer(type, props = {}, ...children) {
+          const jsonifyProps = JSON.parse(props);
 
-            return options.createElement(
-              tag,
-              componentProps,
-              isElementVoid ? null : children
-            );
-          }
-        };
+          const componentProps =
+            components.indexOf(type) >= 0
+              ? Object.assign(jsonifyProps || {}, {
+                  // eslint-disable-next-line no-plusplus
+                  key: tracker.nextElementId++
+                })
+              : Object.assign(jsonifyProps || {}, {
+                  // eslint-disable-next-line no-plusplus
+                  key: tracker.nextElementId++
+                });
 
-        tracker.elements[elementId] =
-          // eslint-disable-next-line no-new-func
-          new Function(
-            'React',
-            ...Object.keys(options.components),
-            `return ${code}`
-          )(mockedReact, ...components) || null;
+          const isElementVoid = voidElements.indexOf(type) > -1;
+
+          return options.createElement(
+            type,
+            componentProps,
+            isElementVoid ? null : children
+          );
+        }
+
+        const htmRenderer = htm.bind(customRenderer);
+
+        tracker.elements[elementId] = htmRenderer`${html}` || null;
 
         tracker.tree.push(tracker.elements[elementId]);
 
